@@ -4,6 +4,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { RecadoEntity } from './entities/recado.entity';
+import { PostRecadoDto } from './dto/post-recado.dto';
+import { PatchRecadoDto } from './dto/patch-recado.dto';
+import { PutRecadoDto } from './dto/put-recado-dto';
 
 @Injectable()
 export class RecadosService {
@@ -32,16 +35,16 @@ export class RecadosService {
     throw new NotFoundException('Recado não encontrado');
   }
 
-  create(recado: RecadoEntity) {
+  create(recado: PostRecadoDto) {
     if (!recado) throw new BadRequestException('Recado é obrigatório');
 
     this.lastId++;
     const id = this.lastId;
-    const novoRecado = { ...recado, id };
+    const novoRecado = { ...recado, id, lido: false, data: new Date() };
     this.recados.push(novoRecado);
   }
 
-  updatePatch(id: number, recado: Partial<RecadoEntity>) {
+  updatePatch(id: number, recado: PatchRecadoDto) {
     if (!id) throw new BadRequestException('ID é obrigatório');
     if (!recado) throw new BadRequestException('Recado é obrigatório');
 
@@ -52,15 +55,15 @@ export class RecadosService {
     this.recados[recadoIndex] = { ...this.recados[recadoIndex], ...recado };
   }
 
-  updatePut(id: number, recado: RecadoEntity) {
+  updatePut(id: number, recado: PutRecadoDto) {
     if (!id) throw new BadRequestException('ID é obrigatório');
     if (!recado) throw new BadRequestException('Recado é obrigatório');
 
-    const recadoIndex = this.recados.findIndex((r) => r.id === recado.id);
+    const recadoIndex = this.recados.findIndex((r) => r.id === id);
     if (recadoIndex === -1)
       throw new NotFoundException('Recado não encontrado');
 
-    this.recados[recadoIndex] = recado;
+    this.recados[recadoIndex] = { ...this.recados[recadoIndex], ...recado };
   }
 
   delete(id: number) {

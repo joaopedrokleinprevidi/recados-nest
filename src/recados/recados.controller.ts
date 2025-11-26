@@ -11,7 +11,9 @@ import {
   Put,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service';
-import { RecadoEntity } from './entities/recado.entity';
+import { PatchRecadoDto } from './dto/patch-recado.dto';
+import { PutRecadoDto } from './dto/put-recado-dto';
+import { PostRecadoDto } from './dto/post-recado.dto';
 
 //Query Params Example
 // findAll(@Query('pageIndex') pageIndex: string) {
@@ -37,19 +39,19 @@ export class RecadosController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  create(@Body() body: RecadoEntity) {
+  create(@Body() body: PostRecadoDto) {
     return this.recadosService.create(body);
   }
 
   @HttpCode(HttpStatus.OK)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: Partial<RecadoEntity>) {
+  update(@Param('id') id: string, @Body() body: PatchRecadoDto) {
     return this.recadosService.updatePatch(Number(id), body);
   }
 
   @HttpCode(HttpStatus.OK)
   @Put(':id')
-  updatePut(@Param('id') id: string, @Body() body: RecadoEntity) {
+  updatePut(@Param('id') id: string, @Body() body: PutRecadoDto) {
     return this.recadosService.updatePut(Number(id), body);
   }
 
