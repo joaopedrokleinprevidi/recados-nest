@@ -1,0 +1,56 @@
+@baseUrl = http://localhost:3000
+ 
+export class RecadoEntity {
+  id: number;
+  texto: string;
+  de: string;
+  para: string;
+  lido: boolean;
+  data: Date;
+}
+
+
+# RECADOS
+
+### GET ALL RECADOS
+GET {{baseUrl}}/recados
+
+### GET ONE RECADO
+GET {{baseUrl}}/recados/1
+
+### CRIAR UM RECADO
+POST {{baseUrl}}/recados
+Content-Type: application/json
+
+{
+  "id": 2,
+  "texto": "Vá para a praia",
+  "de": "Jorge",
+  "para": "Rogério",
+  "lido": false,
+  "data": "2024-06-01T00:00:00Z"
+}
+
+### ATUALIZAR UM ÚNICO METADADO DO RECADO
+PATCH {{baseUrl}}/recados/2
+Content-Type: application/json
+
+{
+  "texto": "Vá para a praia com o Matheus"
+}
+
+### ATUALIZAR UM TODOS METADADOS DO RECADO
+PUT {{baseUrl}}/recados/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "texto": "Vá para a praia agora!",
+  "de": "Jorge Silva",
+  "para": "Rogério Santos",
+  "lido": true,
+  "data": "2024-06-01T00:00:00Z"
+}
+
+### APAGAR UM ÚNICO RECADO
+DELETE {{baseUrl}}/recados/2
