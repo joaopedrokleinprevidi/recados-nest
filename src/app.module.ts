@@ -4,9 +4,21 @@ import { AppService } from './app.service';
 import { RecadosModule } from './recados/recados.module';
 import { RecadosController } from './recados/recados.controller';
 import { RecadosService } from './recados/recados.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [RecadosModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5433,
+      username: 'postgres',
+      password: '123456',
+      autoLoadEntities: true, // carrega entidades sem precisar especifica-las
+      synchronize: true, // sincroniza a base de dados. Não deve ser usado em produção. Pode apagar dados. Perigoso!
+    }),
+    RecadosModule,
+  ],
   controllers: [AppController, RecadosController],
   providers: [AppService, RecadosService],
 })

@@ -33,8 +33,8 @@ export class RecadosController {
 
   @HttpCode(HttpStatus.OK)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.recadosService.findOne(Number(id));
+  findOne(@Param('id') id: number) {
+    return this.recadosService.findOne(id);
   }
 
   @HttpCode(HttpStatus.CREATED)
@@ -45,18 +45,18 @@ export class RecadosController {
 
   @HttpCode(HttpStatus.OK)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: PatchRecadoDto) {
-    return this.recadosService.updatePatch(Number(id), body);
+  update(@Param('id') id: number, @Body() body: PatchRecadoDto) {
+    return this.recadosService.updatePatch(id, body);
   }
 
   @HttpCode(HttpStatus.OK)
   @Put(':id')
-  updatePut(@Param('id') id: string, @Body() body: PutRecadoDto) {
-    return this.recadosService.updatePut(Number(id), body);
+  updatePut(@Param('id') id: number, @Body() body: PutRecadoDto) {
+    return this.recadosService.updatePut(id, body);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.recadosService.delete(Number(id));
+  remove(@Param('id') id: number) {
+    return this.recadosService.delete(id);
   }
 }
